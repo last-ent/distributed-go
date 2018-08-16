@@ -62,13 +62,13 @@ func getResultsMap(ch <-chan queryResult) map[string]int {
 
 	resultsMap := map[string]int{}
 	for _, doc := range results {
-			docID := doc.DocID
-			score := doc.Score
-			if _, exists := resultsMap[docID]; !exists {
-				resultsMap[docID] = 0
-			}
-			resultsMap[docID] = resultsMap[docID] + score
+		docID := doc.DocID
+		score := doc.Score
+		if _, exists := resultsMap[docID]; !exists {
+			resultsMap[docID] = 0
 		}
+		resultsMap[docID] = resultsMap[docID] + score
+	}
 
 	return resultsMap
 }
@@ -115,13 +115,13 @@ func QueryHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 	w.Write(payload)
 
-	fmt.Printf("%#v\n", sortedResults))
+	fmt.Printf("%#v\n", sortedResults)
 }
 
 func sortResults(rm map[string]int) []document {
 	scoreMap := map[int][]document{}
 	ch := make(chan document)
-	
+
 	for docID, score := range rm {
 		if _, exists := scoreMap[score]; !exists {
 			scoreMap[score] = []document{}

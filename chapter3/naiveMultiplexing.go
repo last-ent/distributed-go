@@ -14,7 +14,7 @@ func main() {
 	go func() {
 		// Starting to wait on channels
 		for _, chX := range channels {
-			fmt.Println("Receiving from", <- chX)
+			fmt.Println("Receiving from", <-chX)
 		}
 	}()
 

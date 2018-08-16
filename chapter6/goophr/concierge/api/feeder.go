@@ -276,7 +276,7 @@ func getFile(URL string) (string, error) {
 	defer res.Body.Close()
 
 	if err != nil {
-		errMsg := fmt.Errorf("Error while reading response: URL: %s.\nError: %s", URL, res.StatusCode, err.Error())
+		errMsg := fmt.Errorf("Error while reading response: URL: %s.\nError: %d - %s", URL, res.StatusCode, err.Error())
 
 		return "", errMsg
 	}
