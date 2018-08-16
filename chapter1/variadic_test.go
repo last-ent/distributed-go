@@ -48,6 +48,6 @@ func TestMixedVariadicToSlice(t *testing.T) {
 	if name == "Bob" && numbers == nil {
 		t.Log("Received as expected: Bob, <nil slice>")
 	} else {
-		t.Errorf("Received unexpected values: %s, %s", name, numbers)
+		t.Errorf("Received unexpected values: %s, %v", name, numbers)
 	}
 }

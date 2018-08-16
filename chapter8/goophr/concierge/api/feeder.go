@@ -22,7 +22,7 @@ type document struct {
 	Doc   string `json:"-"`
 	Title string `json:"title"`
 	DocID string `json:"-"`
-	URL string `json:"url"`
+	URL   string `json:"url"`
 }
 
 type token struct {
@@ -269,7 +269,7 @@ func docProcessor(in chan payload, dStoreCh chan document, dProcessCh chan docum
 			msg := document{
 				Doc:   doc,
 				DocID: titleID,
-				URL: newDoc.URL,
+				URL:   newDoc.URL,
 				Title: newDoc.Title,
 			}
 
@@ -317,7 +317,7 @@ func getFile(URL string) (string, error) {
 	defer res.Body.Close()
 
 	if err != nil {
-		errMsg := fmt.Errorf("Error while reading response: URL: %s.\nError: %s", URL, res.StatusCode, err.Error())
+		errMsg := fmt.Errorf("Error while reading response: URL: %s.\nError: %d - %s", URL, res.StatusCode, err.Error())
 
 		return "", errMsg
 	}

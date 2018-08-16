@@ -14,7 +14,7 @@ func simpleFunc(index int, wg *sync.WaitGroup) {
 func main() {
 	var wg sync.WaitGroup
 	wg.Add(40)
-	for i := 0; i < 40; i += 1 {
+	for i := 0; i < 40; i++ {
 		go func(j int) {
 			simpleFunc(j, &wg)
 		}(i)

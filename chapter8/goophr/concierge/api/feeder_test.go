@@ -64,13 +64,13 @@ func TestIndexProcessor(t *testing.T) {
 	for i, tc := range []string{
 		"golang", "programming", "rocks",
 	} {
-		t.Run(fmt.Sprintf("Testing if '%s' is returned. at index: %d", tc, i+1), func(t *testing.T) {
+		t.Run(fmt.Sprintf("Testing if '%s' is returned at index: %d", tc, i+1), func(t *testing.T) {
 			tok := <-ch3
 			if tok.Token != tc {
 				t.Error(tok.Token, "!=", tc)
 			}
-			if tok.Index != i+1 {
-				t.Error(tok.Index, "!=", i+1)
+			if tok.Index != i {
+				t.Error(tok.Index, "!=", i)
 			}
 		})
 	}
