@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -32,11 +31,11 @@ type queryResult struct {
 	Data  []docs `json:"data"`
 }
 
-func queryLibrarian(endpoint string, stBytes io.Reader, ch chan<- queryResult) {
+func queryLibrarian(endpoint string, st []byte, ch chan<- queryResult) {
 	resp, err := http.Post(
 		endpoint+"/query",
 		"application/json",
-		stBytes,
+		bytes.NewBuffer(st),
 	)
 	if err != nil {
 		common.Warn(fmt.Sprintf("%s -> %+v", endpoint, err))
@@ -96,13 +95,12 @@ func QueryHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	stBytes := bytes.NewBuffer(st)
 
 	resultsCh := make(chan queryResult)
 
 	for _, le := range librarianEndpoints {
 		func(endpoint string) {
-			go queryLibrarian(endpoint, stBytes, resultsCh)
+			go queryLibrarian(endpoint, st, resultsCh)
 		}(le)
 	}
 
